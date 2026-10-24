@@ -8,21 +8,30 @@ fn main() {
         ("Adekunle Gold", "EEE11020202", "Electrical", 200),
         ("Blanca Edemoh", "MEE10202001", "Mechanical", 100),
     ];
-    let mut file = File::create("students.txt")
+    let mut file = File::create("pau_students.txt")
         .expect("Failed to create file");
-    for student in &students {
-        println!(
-            "Name: {}, Matric No: {}, Department: {}, Level: {}",
-            student.0, student.1, student.2, student.3
-        );
+    for i in 0..students.len() {
+        println!("Name: {}", students[i].0);
+        println!("Matric Number: {}", students[i].1);
+        println!("Department: {}", students[i].2);
+        println!("Level: {}", students[i].3);
+        println!();
+        file.write_all(students[i].0.as_bytes())
+            .expect("Write failed");
+        file.write_all(", ".as_bytes())
+            .expect("Write failed");
+        file.write_all(students[i].1.as_bytes())
+            .expect("Write failed");
+        file.write_all(", ".as_bytes())
+            .expect("Write failed");
+        file.write_all(students[i].2.as_bytes())
+            .expect("Write failed");
+        file.write_all(", ".as_bytes())
+            .expect("Write failed");
+        file.write_all(students[i].3.to_string().as_bytes())
+            .expect("Write failed");
+        file.write_all("\n".as_bytes())
+            .expect("Write failed");
     }
-    for student in &students {
-        let line = format!(
-            "{}, {}, {}, {}\n",
-            student.0, student.1, student.2, student.3
-        );
-        file.write_all(line.as_bytes())
-            .expect("Failed to write to file");
-    }
-    println!("Student details have been saved successfully!");
+    println!("Student records saved successfully!");
 }
